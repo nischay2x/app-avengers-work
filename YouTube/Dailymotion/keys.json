@@ -1,0 +1,5 @@
+{
+    "API_KEY" : "3f2ecad51adeb09e9702",
+    "API_SECRET" : "72d310c86f98b41058e774bc343b0110e7306c11",
+    "REDIRECT_URL" : "http://localhost:5000/dailymotion/callback"
+}

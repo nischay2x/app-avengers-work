@@ -1,0 +1,73 @@
+<html lang="en">
+
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    .video-card {
+        box-shadow: 2px 2px 10px gray;
+    }
+</style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+  
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  
+    <!-- Poppins from google fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+  
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/95105048e2.js" crossorigin="anonymous"></script>
+  
+    <title>Vimeo Home</title>
+</head>
+<body>
+    <nav class="navbar w-100 bg-dark text-white">
+        <div class="navbar-brand">
+            <h4>Vimeo Mint</h4>
+        </div>
+        <div class="px-3">
+            <a href="/login" class="user-profile btn-outline-light">
+              <i class="fas fa-user"></i>
+            </a>
+        </div>
+    </nav>
+    <main class="container">
+        <section class="d-flex flex-column align-items-center justify-content-center">
+            <div class="m-2 p-2">
+                <a href="http://localhost:5000/my-videos">Click Here to See Your Videos</a>
+            </div>
+        </section>
+        <section>
+            <div class="card-header bg-dark text-white">
+              <h2>Browse Videos</h2>
+            </div>
+            <div class="row card-body" id="uploads">
+              <% uploads.forEach(video => { %>
+                <a href="/watch?v=<%= video.uri%>" class="col-12 col-md-6 col-lg-3">
+                    <div class="video-card">
+                      <img src="<%= video.pictures.base_link ? video.pictures.base_link : 'https://i.ytimg.com/vi/djwxWh2eQv0/hqdefault.jpg'%>" alt="video-thumbnail" width="100%">
+                    </div>
+                    <div class="card-body px-0 text-center">
+                      <h6>
+                        <%= video.name%>
+                      </h6>
+                      <p class="text-secondary" style="font-size: 10px;">
+                        <%= new Date(video.created_time).toLocaleString()%>
+                      </p>
+                    </div>
+                </a>
+              <% }) %> 
+            </div>
+        </section>
+    </main>
+</body>
+</html>

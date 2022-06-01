@@ -1,0 +1,90 @@
+<html lang="en">
+
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+</style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+  
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  
+    <!-- Poppins from google fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+  
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/95105048e2.js" crossorigin="anonymous"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <title>Watch <%= video.name%></title>
+</head>
+<body>
+    <main style="height: 100vh;" class="d-flex justify-content-center align-items-center">
+        <div class="p-4 col-lg-6 col-11" style="box-shadow: inset 2px 2px 10px gray; border-radius: 10px;">
+            <div class="m-2">
+                <a href="/my-videos">
+                    <button class="btn btn-dark">
+                        Back to All Videos
+                    </button>
+                </a>
+            </div>
+            <div class="m-2" id="player">
+                <div style="padding:56.25% 0 0 0;position:relative;">
+                    <iframe 
+                        src="https://player.vimeo.com/video/<%= videoId%>?h=52df3df963&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                        title="<%= videoTitle%>">
+                    </iframe>
+                </div>
+            </div>
+            <div class="m-2 d-flex justify-content-between">
+                <div>
+                    <h5><%= video.name%></h5>
+                    <p style="color: rgb(85, 85, 255);"><%= video.tags.join(' #')%></p>
+                    <p><%= video.description%></p>
+                </div>
+                <div>
+                    <button class="btn" id="save-to-playlist">
+                        <% if(saved) { %>
+                        <i class="fa fa-minus" title="Remove From Playlist"></i>
+                        <% } else { %>
+                            <i class="fa fa-plus" title="Add to Playlist"></i>
+                        <% } %>
+                    </button>
+                    <div>
+                        <a href="/saved">See Playlist</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p>Created : <%= new Date(video.created_time).toLocaleString()%></p>
+                <p>Link :  <a href="<%= video.link%>"><%= video.link%></a></p>
+            </div>
+        </div>
+    </main>
+    <script defer>
+        const saveButton = document.getElementById('save-to-playlist')
+        saveButton.onclick = ()  => {
+            fetch('http://localhost:5000/toggle-playlist?videoUri=<%= video.uri%>').then(response => response.json()).then(data => {
+                if(data.status){
+                    alert("Success : "+ data.msg)
+                    if(data.in) saveButton.innerHTML = '<i class="fa fa-minus"></i>'
+                    else saveButton.innerHTML = '<i class="fa fa-plus"></i>'
+                } else {
+                    alert("Error : "+ data.msg)
+                }
+            }).catch(err => console.log(err))
+        }
+    </script>
+</body>
+</html>

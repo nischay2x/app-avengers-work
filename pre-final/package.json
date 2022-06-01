@@ -1,0 +1,29 @@
+{
+  "name": "pre-final",
+  "version": "1.0.0",
+  "description": "Starting Final Build",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nischay2x/pre-final-AA.git"
+  },
+  "author": "Nischay Chandra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nischay2x/pre-final-AA/issues"
+  },
+  "homepage": "https://github.com/nischay2x/pre-final-AA#readme",
+  "dependencies": {
+    "@metamask/eth-sig-util": "^4.0.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "googleapis": "^92.0.0",
+    "joi": "^17.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.3"
+  }
+}

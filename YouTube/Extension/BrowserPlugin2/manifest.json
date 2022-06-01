@@ -1,0 +1,26 @@
+{
+    "name" : "YouTube Mint",
+    "description" : "Add your videos to YT Mint",
+    "version" : "1.0.0",
+    "manifest_version" : 3,
+    "key" : "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6K2nQqJBGrPdYe5vR3NywznHGFjYJrwf3Euc/E9kLwa7lAGkHsFzoIqAz8gbhcqXDu/t2lPGENhnmDKihKg0AGCYYu6cN7DZkasaZpqdcorh7tpeKX4jT9d/HTlfjCnsTjmCfX3w+fQ3YL84JFeoCeBtL0aNoKQtCoC8zrCBePZ7tX4of+F5x1P0+SFb0FNnoppxWXsK3j09z8t9PIW7uYXR8+aaU9R9bfefmFSOJLk2o1XFoqf6SxdG9mWHQ7TyO2qGO5UNPC/3VjrdnD9tnudMxxeb3oKnArJQjQQk64SrAcGfeisBMJEPAfk7F5i1ptu/0AaRWPVAf7/6ZOSFRwIDAQAB",
+    "icons" : {
+        "19" : "./icon.png",
+        "128" : "./icon_128.png"
+    },
+    "background" : {
+        "service_worker" : "./background.js"
+    },
+    "action" : {
+        "default_popup" : "popup.html"
+    },
+    "permissions" : [
+        "tabs",
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions" : [
+        "https://www.youtube.com/"
+    ]
+}

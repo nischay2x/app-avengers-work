@@ -1,0 +1,8 @@
+{
+    "APP_ID" : "428951248759666",
+    "APP_SECRET" : "82b7c6a67d58abb79832de578d50b252",
+    "REDIRECT_URL" : "https://igtv-nischay2x.vercel.app/instagram/callback",
+    "F_APP_ID" : "582756332834293",
+    "F_APP_SECRET" : "d434efa1027e437a3d91ea8024fdb8c6",
+    "F_CALLBACK_URL" : "https://igtv.vercel.app/facebook/callback"
+}

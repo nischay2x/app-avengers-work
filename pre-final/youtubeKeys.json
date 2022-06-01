@@ -1,0 +1,12 @@
+{
+    "web":{
+        "client_id":"looks like this - 732874362373-es0rta2dvt76bq9l4mgf88ckdi2ogvml.apps.googleusercontent.com",
+        "project_id":"appavengerstest",
+        "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+        "token_uri":"https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret":"looks like this - 8LnCOKO9V-xM3MpzBotfZ-5v",
+        "redirect_uris":["http://localhost:5000/callback"],
+        "javascript_origins":["http://localhost"]
+    }
+}

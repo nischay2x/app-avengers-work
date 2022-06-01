@@ -1,0 +1,8 @@
+{
+    "APP_ID" : "instagram app id from developer.facebook.com dashboard",
+    "APP_SECRET" : "instagram app secret from developer.facebook.com dashboard",
+    "REDIRECT_URL" : "instagram callback endpoint",
+    "F_APP_ID" : "facebook app id",
+    "F_APP_SECRET" : "facebook app secret",
+    "F_CALLBACK_URL" : "callback endpoint for facebook"
+}

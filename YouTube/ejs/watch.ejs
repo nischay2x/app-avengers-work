@@ -1,0 +1,132 @@
+<html lang="en">
+
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+</style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+  
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  
+    <!-- Poppins from google fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+  
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/95105048e2.js" crossorigin="anonymous"></script>
+  
+    <title>Watch - <%= snippet.title%></title>
+</head>
+<body>
+    <nav class="navbar w-100 bg-dark text-white">
+        <div class="navbar-brand">
+            <h4>YouTube Studio</h4>
+        </div>
+        <form action="/search-channel" method="get" class="col-md-4 d-flex">
+            <input type="text" class="form-control" name="username" placeholder="Search YouTube Channel">
+            <button type="submit" class="btn">Search</button>
+        </form>
+        <div class="px-3">
+            <a href="http://localhost:5000/logout" title="Logout" class="btn-outline-light mx-2">
+              <i class="fas fa-sign-out-alt"></i>
+            </a>
+            <a href="http://localhost:5000/my-channel" title="Your Channel" class="btn-outline-light mx-2">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="http://localhost:5000/" title="Home" class="btn-outline-light mx-2">
+                <i class="fas fa-home"></i>
+            </a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section>
+            <div class="card">
+                <div class="card-img d-flex">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= id%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="card-body" style="max-height: 315px; overflow-y: scroll;">
+                        <div id="vid-desc"></div>
+                        <div>
+                            <% snippet.tags.forEach(tag => { %>
+                                <a href="https://youtube.com/hashtags/<%= tag%>" class="mx-1">#<%= tag%></a>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                       <div class="col-12 col-md-6">
+                            <h5><%= snippet.title%></h5>
+                            <p class="text-secondary" style="font-size: small;"><%= new Date(snippet.publishedAt).toLocaleString()%></p>
+                            <button class="btn" id="save-to-playlist">
+                                <% if(saved) { %>
+                                <i class="fa fa-minus" title="Remove From Playlist"></i>
+                                <% } else { %>
+                                    <i class="fa fa-plus" title="Add to Playlist"></i>                
+                                <% } %>
+                            </button>
+                            <a href="http://localhost:5000/saved-playlist">See Your Saved Playlist</a>
+                        </div>
+                        <div class="d-flex col-12 col-md-6 justify-content-around">
+                            <span class="nav-link text-center">
+                                <i class="fas fa-lg fa-eye"></i>
+                                <br>
+                                <span><%= statistics.viewCount%></span>
+                            </span>
+                            <span class="nav-link text-center">
+                                <i class="fas fa-lg fa-thumbs-up"></i>
+                                <br>
+                                <span><%= statistics.likeCount%></span>
+                            </span>
+                            <span class="nav-link text-center">
+                                <i class="fas fa-lg fa-thumbs-down"></i>
+                                <br>
+                                <span><%= statistics.dislikeCount%></span>
+                            </span>
+                            <span class="nav-link text-center">
+                                <i class="fas fa-lg fa-comments"></i>
+                                <br>
+                                <span><%= statistics.commentCount%></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script defer>
+        let description = '<%= snippet.description %>'
+        if(/(http|https):\/\/[a-z]+\.[a-z]+[\/a-z]+/gi.test(description)){
+            description.match(/(http|https):\/\/[a-z]+\.[a-z]+[\/a-z]+/gi).forEach(mch => {
+                description = description.replace(mch, `<a href='${mch}' target='_blank'>${mch}</a>`) 
+            })
+        } 
+        description = description.replace(/[\n]+/g, '<br>');
+        document.getElementById('vid-desc').innerHTML = description;
+
+        const saveButton = document.getElementById('save-to-playlist')
+        saveButton.onclick = ()  => {
+            fetch('http://localhost:5000/toggle-playlist?vid=<%= id%>').then(response => response.json()).then(data => {
+                if(data.status){
+                    alert("Success : "+ data.msg)
+                    if(data.in) saveButton.innerHTML = '<i class="fa fa-minus"></i>'
+                    else saveButton.innerHTML = '<i class="fa fa-plus"></i>'
+                } else {
+                    alert("Error : "+ data.msg)
+                }
+            }).catch(err => console.log(err))
+        }
+    </script>
+</body>
+</html>
